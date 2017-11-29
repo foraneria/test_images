@@ -20,6 +20,14 @@ def transform_image_from_url_to_image_object(image_link: str) -> (Image.Image, d
     return image, dict(response.headers)
 
 
+def transform_image_to_binary(image: Image, **kwargs) -> bytes:
+    output = BytesIO()
+    image_format = image.format or 'jpeg'
+    image.save(output, format=image_format, **kwargs)
+    hex_data = output.getvalue()
+    return hex_data
+
+
 def send_request(url: str) -> requests.Response:
     """
     Use requests library and add logging in it

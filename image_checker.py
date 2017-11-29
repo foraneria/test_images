@@ -1,3 +1,5 @@
+from hashlib import md5
+
 from PIL import Image
 from hamcrest import assert_that, equal_to, empty, is_not
 
@@ -42,3 +44,9 @@ def check_image_size(image_file: Image, size: tuple):
 def check_headers(headers: dict):
     assert_that(headers.get('Content-Length'), is_not(None))
     assert_that(headers.get('Content-Type'), equal_to('image/jpeg'))
+
+
+def check_image_md5(old_image_data: bytes, new_image_data: bytes):
+    old_md5 = md5(old_image_data).hexdigest()
+    new_md5 = md5(new_image_data).hexdigest()
+    assert_that(old_md5, not equal_to(new_md5))
