@@ -37,6 +37,8 @@ In file image_checker you can find checks for image:
 This checks use Pillow library for get image data
 
 ## To run test ## 
+Test uses pytest fraemwork
+
 ### For the first run ###
 - use python 3.6.x
 - if you use virtualenv, activate it
