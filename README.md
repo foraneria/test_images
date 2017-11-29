@@ -36,6 +36,9 @@ In file image_checker you can find checks for image:
 
 This checks use Pillow library for get image data
 
+## Method for make image uniwue ##
+In file unique_image.py you can find 3 methods to make image unique based on static image set
+
 ## To run test ## 
 Test uses pytest framework
 
