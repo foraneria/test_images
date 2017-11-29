@@ -26,3 +26,30 @@ This cases should be also successful in image uploading but may contain difficul
 - empty files
 ```
 All these images are not images actually and it uploading should return error code
+
+## Checker ##
+In file image_checker you can find checks for image:
+- size
+- icc_profile
+- progressive for jpeg
+- meta data checks
+
+This checks use Pillow library for get image data
+
+## To run test ## 
+Test uses pytest fraemwork
+
+### For the first run ###
+- use python 3.6.x
+- if you use virtualenv, activate it
+- install requirements 
+```
+pip install -r requirements.txt 
+```
+### run test ### 
+- activate virtualenv and call from terminal
+```
+source venv/bin/activate
+py.test test.py 
+```
+or use PyCarm to run test 
