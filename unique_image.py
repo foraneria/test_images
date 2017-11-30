@@ -13,8 +13,8 @@ def unique_image_by_metadata(image: Image) -> bytes:
     Gif image do not have _getexif() method
     For png analogically use
     img.save(output, "PNG", pnginfo=PngImagePlugin.PngInfo())
-    :param image:
-    :return:
+    :param image: PIL.Image
+    :return: binary_data in bytes
     """
     exif_dict = _get_image_metadata(image)
     # 37510 in ExifIFD is UserComment field
@@ -32,6 +32,11 @@ def _get_image_metadata(image: Image) -> dict:
 
 
 def unique_image_by_size(image: Image) -> bytes:
+    """
+    Change image size. Proper work for squared images, otherwise need to calculate image ratio
+    :param image: PIL.Image
+    :return: binary_data in bytes
+    """
     new_sizes = (random.randint(image.height // 2, image.height), random.randint(image.width // 2, image.width))
     image.resize(new_sizes, Image.ANTIALIAS)
     binary_data = transform_image_to_binary(image)
@@ -43,12 +48,15 @@ def unique_image_by_draw(image: Image) -> bytes:
     Set font_path like font_path = '/fonts/calibri.ttf' or use defult
     In case real font you can change size
     font = ImageFont.truetype(font_path, 30)
-    :param image:
-    :return:
+    For default
+    font = ImageFont.load_default()
+    Default font is "better than nothing font". It doesn't allow to change font size
+    :param image: PIL.Image
+    :return: binary_data in bytes
     """
     draw = ImageDraw.Draw(image)
-    # Default font is "better than nothing font". It doesn't allow to change font size
-    font = ImageFont.load_default()
+    font_path = './data/4402.ttf'
+    font = ImageFont.truetype(font_path, 30)
     time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')
     # (150, 150) - left corner to start text
     draw.text((150, 150), time, font=font, fill='red')
